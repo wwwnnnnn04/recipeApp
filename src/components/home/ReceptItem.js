@@ -1,5 +1,5 @@
-import React from 'react';
-import {Text, Image, View, ActivityIndicator} from 'react-native';
+import React, {useState} from 'react';
+import {Text, Image, View, ActivityIndicator, StyleSheet, TextInput, TouchableHighlight} from 'react-native';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
 
@@ -10,10 +10,41 @@ export const localRecept = [
     }
 ]
 
+
+
 export default function ReceptItem({navigation, ...props}){
-        return(
+
+    const [receptSearch, setReceptSearch] = useState('')
+    
+
+let search = props.receptData.filter((recept)=>{
+    return Object.keys(recept).some(key=>recept[key].toString().toLowerCase().includes(receptSearch.toString().toLowerCase()))
+}
+)
+
+    return(
+            
             <View>
-                {props.receptData.map((recept, index)=>(
+                <View style={{ width:'60%',
+                                height:40,
+                                borderBottomColor:'#8a5f1e',
+                                borderBottomWidth:2,
+                                marginBottom:15,
+                                marginLeft:'20%',
+                                marginTop:10,
+                                justifyContent:'center',
+                                flexDirection:'row',
+                                justifyContent:'space-between'}}>
+                  <TextInput placeholder='Search...'  
+                  value={receptSearch}
+                  onChangeText={(text)=>{setReceptSearch(text)}}
+                  style={{ fontSize:17,
+                    fontFamily:'Bitter-Light'  }}
+                    placeholder='Search ...'
+                  />
+                </View>
+                {search
+                .map((recept, index)=>(
                
                 <Animatable.View key={index} style={{marginTop:10, padding:10, backgroundColor:'#f5bb47'}} animation="fadeInUp" delay={index * 100} useNativeDriver>
                 <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate('ReceptScreen', {
@@ -26,12 +57,23 @@ export default function ReceptItem({navigation, ...props}){
                 </TouchableOpacity>   
                 </Animatable.View>
                 
-                ))}
+                ))
+                
+                
+                }
+                
+          
+           
+          
                 
             </View>
             
         
     )
+}
+
+const Search = (props)=>{
+    
 }
 
 const ReceptImage = (props) => (    
@@ -62,3 +104,29 @@ const ReceptInfo = (props) =>(
         </View>
     </View>
 );
+const styles = StyleSheet.create({
+    
+    searchInp:{
+        fontSize:17,
+        fontFamily:'Bitter-Light'         
+    },
+    search:{
+       width:'65%',
+       height:'30%',
+       borderBottomColor:'#8a5f1e',
+        borderBottomWidth:2,
+        marginBottom:15,
+        marginTop:10,
+        justifyContent:'center',
+        flexDirection:'row',
+        justifyContent:'space-between'
+    },
+    but:{
+        backgroundColor:'#8a5f1e',
+        width:40,
+        height:40,
+        borderRadius:15,
+        justifyContent:'center',
+        alignItems:'center',
+    }
+})

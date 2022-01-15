@@ -4,7 +4,7 @@
     "slug": "receptApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/iconMy.png",
+    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -20,6 +20,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package":"tothepointcode.receipApp",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#f5c276"

@@ -1,11 +1,12 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity, Share } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch, useSelector} from 'react-redux';
 
 
  function About(props) {
-    
-        const onShare = async () =>{
+
+        const onShare =  async() =>{
             try{
                 const result = await Share.share({
                     message:`Hello keep my recipe "${title}" ${image}`,
@@ -26,7 +27,21 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
             }
         }
 
-        
+        const dispatch = useDispatch();
+        const selectItem = (item) =>
+        dispatch({
+          type: "ADD_TO_CART",
+          payload: {
+            ...item,
+            strMeal: title,
+            image: image
+          },
+        });
+{/*
+        const cartItem = useSelector(state=> state.cartReducer.selectedItems.item);
+        const isRecept = (title, cartItem)=>{
+            Boolean(cartItem.bind(item=> item.title ===title.title))
+        }*/}
     
     const {title, image, id} = props.route.params;
     return (
@@ -38,10 +53,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
             <View style={{flexDirection:'row'}}>
             <ReceptId id={id} />
            
-            <TouchableOpacity style={{marginLeft:50}}>
+            <TouchableOpacity style={{marginLeft:50}} onPress={()=> selectItem(title, image)} >
                 <MaterialCommunityIcons name="heart-outline" size={35} color="black" />
             </TouchableOpacity>
             </View >
+            
             <TouchableOpacity onPress={onShare} 
             style={{
                 alignItems:'center', 
@@ -53,7 +69,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
                 marginTop:20
                 }}>
            <Text style={{fontSize:20, fontFamily:'Bitter-Light',}}>Share the recipe</Text>
-           </TouchableOpacity>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -77,3 +93,4 @@ const ReceptTitle = (props) =>(
 const ReceptId = (props) =>(
     <Text style={{ fontSize:22, marginTop:5, marginHorizontal:15, fontFamily:'Bitter-Light',}}>{props.id}</Text>
 )
+

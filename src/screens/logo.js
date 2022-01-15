@@ -16,7 +16,7 @@ export default function LogoScreen({navigation}) {
       </View> 
       <LogoImage /> 
       <View style={{width:'100%', alignItems:'center', marginBottom:20}}> 
-      <Text style={{fontSize:25, borderBottomWidth:2, borderBottomColor:'#735519', fontFamily:'Bitter-Light', }}>{auth.currentUser?.email}</Text>
+      <Text style={{fontSize:20, borderBottomWidth:2, borderBottomColor:'#735519', fontFamily:'Bitter-Light', }}>{auth.currentUser?.email}</Text>
       </View>
       <ScrollView>       
       <ListItem /> 

@@ -10,7 +10,10 @@ import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import ReceptScreen from './src/screens/ReceptScreen';
 import Like from './src/screens/Like';
+import { Provider as ReduxProvider } from 'react-redux';
+import configureStore from './reduxe/store';
 
+const store = configureStore();
 
 const Stack= createNativeStackNavigator();
 
@@ -28,6 +31,7 @@ function ScreenA({navigation}){
   } else {
     
     return(
+     
       <ImageBackground source={require('./assets/foto/fonGlav.png')} style={styles.img}>
     <View>
      
@@ -40,12 +44,13 @@ function ScreenA({navigation}){
       </TouchableOpacity>
     </View>
     </ImageBackground>
+    
   )
 }}
 
 export default function App() {
   return (
-    
+    <ReduxProvider store={store}>
      <NavigationContainer>
      <Stack.Navigator initialRouteName="Name" screenOptions={{headerShown: false}} >
           <Stack.Screen name='Name' component={ScreenA}/>
@@ -58,7 +63,7 @@ export default function App() {
 
       </Stack.Navigator>
      </NavigationContainer>
-    
+     </ReduxProvider>
   );
 }
 
